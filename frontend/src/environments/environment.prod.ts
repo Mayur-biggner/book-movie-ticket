@@ -1,6 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config();
 export const environment = {
   production: true,
-  apiUrl: 'https://api.myapp.com',
+  apiUrl: process.env['API_ENDPOINT_PROD'],
   appName: 'MovieBooking',
   logLevel: 'error',
 };

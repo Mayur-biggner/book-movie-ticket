@@ -1,6 +1,8 @@
+import dotenv from 'dotenv';
+dotenv.config();
 export const environment = {
-     production: false,
-     apiUrl: 'http://localhost:3000/',
-     appName: 'MovieBooking-Dev',
-     logLevel: 'debug'
+  production: false,
+  apiUrl: process.env['API_ENDPOINT'],
+  appName: 'MovieBooking-Dev',
+  logLevel: 'debug',
 };
