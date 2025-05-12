@@ -16,7 +16,7 @@ verifyOTP.prototype.validateOTP = async function (req, res) {
     }
     //get the number of attempts
     const attempts = await redisClient.get(redisKey);
-
+    console.log('attempts',attempts)
     //if attempts are greater than 3, return error
     if (attempts > 3) {
         return res.status(429).json({ errors: "Too many attempts, please try again after 60 seconds." });

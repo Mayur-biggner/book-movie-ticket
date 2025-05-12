@@ -8,7 +8,6 @@ import verifyOtp from "./routes/verifyOtp.route.js";
 import { nullByteCheck } from "./middlewares/nullByteDetection.js";
 import xmlparser from "express-xml-bodyparser";
 import { handleXmlParsingErrors } from "./middlewares/xxeDetection.js";
-import ServerlessHttp from "serverless-http";
 
 
 dotenv.config();
@@ -57,6 +56,9 @@ const limiter = rateLimit({
 
 // Apply rate limiting to particular route
 app.use('/verify-otp', limiter, verifyOtp);
+app.get('/hello', (req, res) => {
+    return res.status(200).json({ message: "Welcome to the OTP verification API" });
+})
 
 
 // Fallback 404
@@ -69,4 +71,4 @@ app.listen(port, () => {
     console.log(`OTP API running on port ${port}`);
 });
 
-module.exports.handler = ServerlessHttp(app); // Export the app for testing
+export default app;
