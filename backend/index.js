@@ -8,6 +8,8 @@ import verifyOtp from "./routes/verifyOtp.route.js";
 import { nullByteCheck } from "./middlewares/nullByteDetection.js";
 import xmlparser from "express-xml-bodyparser";
 import { handleXmlParsingErrors } from "./middlewares/xxeDetection.js";
+import ServerlessHttp from "serverless-http";
+
 
 dotenv.config();
 
@@ -66,3 +68,5 @@ app.use((req, res) => {
 app.listen(port, () => {
     console.log(`OTP API running on port ${port}`);
 });
+
+module.exports.handler = ServerlessHttp(app); // Export the app for testing
