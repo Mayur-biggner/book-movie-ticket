@@ -7,7 +7,8 @@
     <div class="d-flex flex-column align-items-center" style="gap: 6px;">
         <div *ngFor="let row of seatRows; let rowIndex = index" class="d-flex justify-content-center" style="gap: 6px;">
             <button *ngFor="let seat of row; let colIndex = index" type="button" class="btn seat" [ngClass]="{
-        'btn-success': seat.selected,
+        'btn-secondary': !seat.selected && seat.vip,        
+        'btn-success': seat.selected && !seat.vip,
         'btn-primary': seat.occupied,
         'btn-outline-secondary': !seat.selected && !seat.occupied
       }" style="width: 40px; height: 40px;" (click)="toggleSeat(rowIndex * 6 + colIndex)" [disabled]="seat.vip">
