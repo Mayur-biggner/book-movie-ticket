@@ -43,6 +43,7 @@ app.use((err, req, res, next) => {
 
 // Middleware to handle XML parsing errors
 app.use(handleXmlParsingErrors)
+app.set('trust proxy', 1);  // Trust the first proxy (if behind a load balancer)
 
 // Rate limiter - max 5 OTP verifications per minute per IP
 const limiter = rateLimit({
