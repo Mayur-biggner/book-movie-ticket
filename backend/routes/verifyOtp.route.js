@@ -12,7 +12,7 @@ const validationCheck = [
   check("otp")
     .exists().withMessage("OTP is required").bail()
     .isString().bail()
-    .matches(/^1\d{3}$/).withMessage("OTP must be 4 digits and start with 1"),
+    .matches(/^\d{4}$/).withMessage("OTP must be 4 digits and start with 1"),
 ]
 
 

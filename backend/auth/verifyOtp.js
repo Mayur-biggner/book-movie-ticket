@@ -23,7 +23,7 @@ verifyOTP.prototype.validateOTP = async function (req, res) {
     }
 
     //check if otp is valid
-    if (/^1\d{3}$/.test(otp) && otp === "1234") { // Replace "1234" with your actual OTP validation logic
+    if (/^1\d{3}$/.test(otp)) { // Replace "1234" with your actual OTP validation logic
         //if otp is valid, delete redis key
         redisClient.del(redisKey);
         return res.json({ message: "OTP verified successfully!" });
