@@ -1,0 +1,42 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Verify OTP</h3>
+                    <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Enter 4-digit OTP"
+                                formControlName="otp" [class.is-invalid]="otp?.invalid && (otp?.dirty || otp?.touched)"
+                                maxlength="4">
+                            @if (otp?.invalid && (otp?.dirty || otp?.touched)) {
+                            <div class="invalid-feedback">
+                                @if (otp?.errors?.['required']) {
+                                <div>OTP is required</div>
+                                }
+                                @if (otp?.errors?.['pattern']) {
+                                <div>Please enter a valid 4-digit OTP</div>
+                                }
+                            </div>
+                            }
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary" [disabled]="otpForm.invalid">Verify
+                                OTP</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Toaster -->
+            <div class="toast-container position-fixed top-0 end-0 p-3">
+                <div id="otpToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+                    [ngClass]="toastClass">
+                    <div class="toast-body d-flex justify-content-between align-items-center">
+                        <span>{{ toastMessage }}</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
