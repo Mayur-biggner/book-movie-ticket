@@ -25,23 +25,47 @@ export class TicketBookComponent {
   selectedSeatNumbers: number[] = [];
   bookingForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
-    this.bookingForm = this.fb.group({
-      fullName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-    });
+ constructor(private fb: FormBuilder, private router: Router) {
+  this.rows = 6;
+  this.cols = 6;
 
-    this.mobile = this.router.getCurrentNavigation()?.extras.state?.['mobile'];
-    console.log('Mobile:', this.mobile); // For debugging
-    if (!this.mobile && this.mobile != '') {
-      this.router.navigate(['/login']);
+  const totalSeats = this.rows * this.cols;
+
+  this.seats = Array.from({ length: totalSeats }, (_, i) => {
+    if (i < this.cols) {
+      // First row (VIP)
+      return {
+        selected: false,
+        occupied: true
+      };
+    } else {
+      // Other seats: 10% chance of being randomly occupied
+      return {
+        selected: false,
+        occupied: Math.random() < 0.1
+      };
     }
+  });
 
-    const totalSeats = this.rows * this.cols;
-    this.seats = Array.from({ length: totalSeats }, () => ({
-      selected: false,
-      occupied: Math.random() < 0.1, // 10% seats randomly occupied
-    }));
+  this.bookingForm = this.fb.group({
+    fullName: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]]
+  });
+
+  this.mobile = this.router.getCurrentNavigation()?.extras.state?.['mobile'];
+  console.log('Mobile:', this.mobile); // For debugging
+  if (!this.mobile && this.mobile !== '') {
+    this.router.navigate(['/login']);
+  }
+}
+
+
+  get seatRows(): any[][] {
+    const rows = [];
+    for (let i = 0; i < this.seats.length; i += 6) {
+      rows.push(this.seats.slice(i, i + 6));
+    }
+    return rows;
   }
 
   toggleSeat(index: number): void {

@@ -3,15 +3,19 @@
 
     <div class="bg-secondary text-white py-2 mb-4 rounded">Screen This Way</div>
 
-    <div class="d-flex flex-wrap justify-content-center gap-2">
-        <div *ngFor="let seat of seats; let i = index" class="seat btn" [ngClass]="{
+    <!-- Seat Grid -->
+    <div class="d-flex flex-column align-items-center" style="gap: 6px;">
+        <div *ngFor="let row of seatRows; let rowIndex = index" class="d-flex justify-content-center" style="gap: 6px;">
+            <button *ngFor="let seat of row; let colIndex = index" type="button" class="btn seat" [ngClass]="{
         'btn-success': seat.selected,
-        'btn-danger': seat.occupied,
+        'btn-primary': seat.occupied,
         'btn-outline-secondary': !seat.selected && !seat.occupied
-      }" (click)="toggleSeat(i)" [class.disabled]="seat.occupied">
-            {{ i + 1 }}
+      }" style="width: 40px; height: 40px;" (click)="toggleSeat(rowIndex * 6 + colIndex)" [disabled]="seat.occupied">
+                {{ rowIndex * 6 + colIndex + 1 }}
+            </button>
         </div>
     </div>
+
 
     <button class="btn btn-primary mt-4" (click)="openBookingModal()">
         Confirm Selection
@@ -51,6 +55,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-success" [disabled]="bookingForm.invalid">
