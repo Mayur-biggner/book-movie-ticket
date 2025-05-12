@@ -36,13 +36,15 @@ export class TicketBookComponent {
       // First row (VIP)
       return {
         selected: false,
-        occupied: true
+        occupied: true,
+        vip:true
       };
     } else {
       // Other seats: 10% chance of being randomly occupied
       return {
         selected: false,
-        occupied: Math.random() < 0.1
+        occupied: Math.random() < 0.1,
+        vip:false
       };
     }
   });

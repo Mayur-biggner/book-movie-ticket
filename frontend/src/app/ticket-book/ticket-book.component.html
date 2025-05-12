@@ -10,7 +10,7 @@
         'btn-success': seat.selected,
         'btn-primary': seat.occupied,
         'btn-outline-secondary': !seat.selected && !seat.occupied
-      }" style="width: 40px; height: 40px;" (click)="toggleSeat(rowIndex * 6 + colIndex)" [disabled]="seat.occupied">
+      }" style="width: 40px; height: 40px;" (click)="toggleSeat(rowIndex * 6 + colIndex)" [disabled]="seat.vip">
                 {{ rowIndex * 6 + colIndex + 1 }}
             </button>
         </div>
